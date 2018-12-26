@@ -8,10 +8,10 @@ namespace ConsoleApp10
 {
     class Program
     {
-        public string qwe()
+        public static double qwe(double x)
         {
             //перевод из 10 в 2
-            double x = 77.77;
+           // double x = 77.77;
             double y = Math.Truncate(x), t = x, ostat = Math.Round((x - y), 2), ostatt;
             string tsel = "";
             string ost = "";
@@ -40,12 +40,13 @@ namespace ConsoleApp10
             char[] tseluy = tsel.ToCharArray();
             Array.Reverse(tseluy);
             string tsel1 = new string(tseluy);
-            return (tsel1);
-            return (ost);
+            //return (tsel1);
+            //return (ost);
+            return (0);
 
         }
 
-        public double qwer()
+        public static double qwer()
         {
             //Перевод из 2 в 10
             string tsel = "111001";
@@ -64,7 +65,7 @@ namespace ConsoleApp10
             return (res);
         }
 
-        public double random()
+        public static double random()
         {
             //Генерация исходной популяции
             Random rnd = new Random();
@@ -72,14 +73,14 @@ namespace ConsoleApp10
             return (rand);
         }
 
-        public double prisposobl(double x)
+        public static double prisposobl(double x)
         {
             //Оценивание функии приспособленности
-            double y = Math.Cos(Math.Pow(x, 2)) / x;
+            double y =(Math.Cos(Math.Pow(x, 2)) / x);
             return (y);
         }
 
-        public string skresh(string[,] mas, int perv, int vtor)
+        public static string skresh(string[,] mas, int perv, int vtor)
         {
             //Скрещивание
             string tsel1 = mas[0, perv];
@@ -123,7 +124,7 @@ namespace ConsoleApp10
             return (OstRes);
         }
 
-        public string mutation(string[,] mas, int perv)
+        public static string mutation(string[,] mas, int perv)
         {
             //Мутация
             string tsel1 = mas[0, perv];
@@ -147,7 +148,7 @@ namespace ConsoleApp10
             return (OstRes);
         }
 
-        public string inverse(string[,] mas, int perv)
+        public static string inverse(string[,] mas, int perv)
         {
             //Инверсия
             string tsel1 = mas[0, perv];
@@ -182,19 +183,18 @@ namespace ConsoleApp10
             return (OstRes);
         }
 
-        public int ruletka(double[] MasPrisposobl, int perv, int vtor)
+        public static int ruletka(double[] MasPrisposobl)
         {
             //Колесо рулетки
             double temp = MasPrisposobl[0];
-            for (int i = 0; i <= MasPrisposobl.Length; i++)
+            for (int i = 0; i < MasPrisposobl.Length; i++)
             {
                 if (temp > MasPrisposobl[i])//Нахождение минимума
                     temp = MasPrisposobl[i];
             }
             temp = Math.Abs(temp);
             Random rnd = new Random();
-            double[,] qwe = new double[2,MasPrisposobl.Length];
-            int rand = rnd.Next((int)qwe[1,0], (int)qwe[1,MasPrisposobl.Length]);
+            double[,] qwe = new double[1,MasPrisposobl.Length];
             for (int i = 0; i <= MasPrisposobl.Length; i++)//делаем сдвиг
                 MasPrisposobl[i] += temp;
             for (int i = 0; i <=MasPrisposobl.Length; i++)//записываем в 0 строку сдвинутый массив
@@ -202,6 +202,8 @@ namespace ConsoleApp10
             qwe[1, 0] = qwe[0, 0];//Первое значение без изменений
             for (int i = 1; i <= MasPrisposobl.Length; i++)
                 qwe[1, i] += qwe[1,i-1];//сумма с предидущим числом
+            //Тут нужно заполнить массив
+            int rand = rnd.Next((int)qwe[1,0], (int)qwe[1,MasPrisposobl.Length]);
                                         // for(int i=MasPrisposobl.Length;i>0;i--)
             int result = MasPrisposobl.Length;
             while (rand < qwe[1, result])
@@ -211,9 +213,21 @@ namespace ConsoleApp10
 
         static void Main(string[] args)
         {
-            double
-            Console.WriteLine(y);
-            Console.WriteLine(z);
+            double[] rand = new double[10];
+            for (int i = 0; i < 10; i++)
+               rand[i]= random();
+
+            double[] prisposoblennost = new double[10];
+            for (int i = 0; i < 10; i++)
+                prisposoblennost[i]=prisposobl(rand[i]);
+            int perv = ruletka(prisposoblennost);
+            int vtor = ruletka(prisposoblennost);
+            double[,] dvoi4n = new double[2,10];
+            for (int i = 0; i < 10; i++)
+              dvoi4n[0,i]=  qwe(rand[i]);
+
+            //Console.WriteLine(y);
+           // Console.WriteLine(z);
             Console.ReadKey();
         }
     }
